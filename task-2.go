@@ -11,7 +11,7 @@ func countWords(str string) map[string]int {
 		char = strings.ToLower(char)
 		lst := []string{}
 		for _, c := range char {
-			if (c >= 'a' && c <= 'z') {
+			if (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') {
 				lst = append(lst, string(c))
 			}
 		}
@@ -34,6 +34,6 @@ func isPalindrome(str string) bool {
 }
 
 func main() {
-	fmt.Println(countWords("a A! A"))
+	fmt.Println(countWords("a A! A1 a1"))
 	fmt.Println(isPalindrome("abba"))
 }
