@@ -60,15 +60,20 @@ func UpdateTask(c *gin.Context){
 		return
 	}
 
-	var task models.Task
-	if err := c.ShouldBindJSON(&task); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+    var task models.Task
+    if err := c.ShouldBindJSON(&task); err != nil {
+		if err.Error() == "cannot unmarshal into an ObjectID, the length must be 24 but it is 1" {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid update"})
+			return
+		}
+        c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+        return
+    }
 
-	data.UpdateTask(objectId, task)
 
-	c.JSON(http.StatusOK, gin.H{"message": "Task updated successfully", "task": task})
+	UpdatedData := data.UpdateTask(objectId, task)
+
+	c.JSON(http.StatusOK, gin.H{"message": "Task updated successfully", "task": UpdatedData})
 }
 
 func DeleteTask(c *gin.Context){

@@ -72,26 +72,26 @@ func CreateTask(task models.Task) *models.Task {
     return &task
 }
 
-func UpdateTask(id primitive.ObjectID, task models.Task) *mongo.UpdateResult {
+func UpdateTask(id primitive.ObjectID, task models.Task) *models.Task {
 	mu.Lock()
 	defer mu.Unlock()
-	filter := bson.M{"id": id}
+	filter := bson.M{"_id": id}
 	update := bson.M{"$set": bson.M{
 		"title": task.Title,
 		"description": task.Description,
 		"status": task.Status,
 	}}
-	UpdateResult, err := collection.UpdateOne(context.TODO(), filter, update)
+	_, err := collection.UpdateOne(context.TODO(), filter, update)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return UpdateResult
+	return GetTaskById(id)
 }
 
 func DeleteTask(id primitive.ObjectID) *models.Task {
 	mu.Lock()
 	defer mu.Unlock()
-	filter := bson.M{"id": id}
+	filter := bson.M{"_id": id}
 	task := GetTaskById(id)
 	_, err := collection.DeleteOne(context.TODO(), filter)
 	if err != nil {
