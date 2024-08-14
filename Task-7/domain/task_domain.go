@@ -66,3 +66,12 @@ type TaskRepository interface {
 	Update(id primitive.ObjectID,task *Task) (*mongo.UpdateResult, error)
 	Delete(id primitive.ObjectID) (*Task, error)
 }
+
+type TaskUseCase interface {
+	GetAllTasks(userRole string, userID primitive.ObjectID) ([]Task, error) 
+	GetTasksByUser(userId primitive.ObjectID) ([]Task, error)
+	GetTaskByID(userRole string, userId, id primitive.ObjectID) (*Task, error)
+	CreateTask(userRole string, userID primitive.ObjectID, task *Task) (*Task, error)
+	UpdateTask(userRole string, userID, id primitive.ObjectID, task *Task) (*Task, error)
+	DeleteTask(userRole string, userID, id primitive.ObjectID) (*Task, error)
+}

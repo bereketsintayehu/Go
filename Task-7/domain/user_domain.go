@@ -72,3 +72,13 @@ type UserRepository interface{
 	DeleteUser(id primitive.ObjectID) (*User, error)
 }
 
+type UserUseCase interface{
+	CreateUser(userRole string, user *User) (*User, error)
+	GetUserByID(userRole string, userId primitive.ObjectID, id string) (*User, error)
+	GetUserByEmail(email string) (*User, error)
+	AuthenticateUser(email, password string) (string, error)
+	GetAllUsers(userRole string) ([]User, error)
+	DeleteUser(userRole, userId, userToBeDeletedID string) (*User, error)
+	UpdateUser(userRole, userId, userToBeUpdatedID string, user *User) (*User, error)
+	Login(email, password string) (string, error)
+}

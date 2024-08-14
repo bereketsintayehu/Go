@@ -10,7 +10,7 @@ type TaskUseCase struct {
 	repo domain.TaskRepository
 }
 
-func NewTaskUseCase(repo domain.TaskRepository) *TaskUseCase {
+func NewTaskUseCase(repo domain.TaskRepository) domain.TaskUseCase {
 	return &TaskUseCase{repo: repo}
 }
 

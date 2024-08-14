@@ -14,7 +14,7 @@ type UserUseCase struct {
 	jwtService      *infrastructure.JWTService
 }
 
-func NewUserUseCase(userRepo *repository.UserRepository, passwordService *infrastructure.PasswordService, jwtService *infrastructure.JWTService) *UserUseCase {
+func NewUserUseCase(userRepo *repository.UserRepository, passwordService *infrastructure.PasswordService, jwtService *infrastructure.JWTService) domain.UserUseCase {
 	return &UserUseCase{
 		userRepo:        userRepo,
 		passwordService: passwordService,

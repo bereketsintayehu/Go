@@ -9,7 +9,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )	
 
-var client *mongo.Client
 
 func ConnectDB() (*mongo.Client, error) {
 	err := godotenv.Load()
